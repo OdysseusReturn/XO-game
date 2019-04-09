@@ -1,8 +1,7 @@
-package com.xo.game;
+package com.xo.game.Model;
 
 
-import com.xo.game.Exceptions.AlreadyOccupiedException;
-import com.xo.game.Exceptions.InvalidPointException;
+import com.xo.game.Model.Exceptions.InvalidPointException;
 
 import java.awt.*;
 
@@ -25,13 +24,11 @@ public class Field {
         return field[point.x][point.y];
     }
 
-    public void setFigure(final Point point, final Figure figure) throws InvalidPointException, AlreadyOccupiedException{
+    public void setFigure(final Point point, final Figure figure) throws InvalidPointException {
         if (!checkPoint(point)){
             throw new InvalidPointException();
         }
-        if (field[point.x][point.y] != null){
-            throw new AlreadyOccupiedException();
-        }
+
         field[point.x][point.y] = figure;
     }
 
