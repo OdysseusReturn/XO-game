@@ -1,7 +1,9 @@
 package com.xo.game;
 
-import com.xo.game.Exceptions.AlreadyOccupiedException;
-import com.xo.game.Exceptions.InvalidPointException;
+import com.xo.game.Model.Exceptions.AlreadyOccupiedException;
+import com.xo.game.Model.Field;
+import com.xo.game.Model.Figure;
+import com.xo.game.Model.Exceptions.InvalidPointException;
 import org.junit.Test;
 
 import java.awt.*;
@@ -29,19 +31,19 @@ public class FieldTest {
         assertEquals(inputFigure, actualFigure);
     }
 
-    @Test
-    public void setFigureWhenAlreadyOccupied() throws Exception {
-        final Field field = new Field();
-        final Point inputPoint = new Point(0,0);
-        final Figure inputFigure = Figure.O;
-
-        field.setFigure(inputPoint, inputFigure);
-
-        try {
-            field.setFigure(inputPoint, inputFigure);
-            fail();
-        } catch (final AlreadyOccupiedException e){}
-    }
+//    @Test
+//    public void setFigureWhenAlreadyOccupied() throws Exception {
+//        final Field field = new Field();
+//        final Point inputPoint = new Point(0,0);
+//        final Figure inputFigure = Figure.O;
+//
+//        field.setFigure(inputPoint, inputFigure);
+//
+//        try {
+//            field.setFigure(inputPoint, inputFigure);
+//            fail();
+//        } catch (final AlreadyOccupiedException e){}
+//    }
 
     @Test
     public void GetFigureWhenFigureIsNotSet() throws Exception {
