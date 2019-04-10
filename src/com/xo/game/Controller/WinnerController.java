@@ -8,70 +8,55 @@ import java.awt.*;
 
 public class WinnerController {
 
-    public Figure getWinner(final Field field){
-
+    public Figure getWinner(final Field field) throws InvalidPointException{
+        Figure winner = null;
         try {
-            for (int i = 0; i < field.getSize(); i++) { //check lines
-                if (check(field, new Point(i, 0), p-> new Point(p.x, p.y + 1))) {
-                    return field.getFigure(new Point(0, 0));
+            //rows check
+            for (int i = 0; i < field.getSize(); i++) {
+                if (check(field, new Point(i, 0), new Point(i, 1), new Point(i, 2))) {
+                    winner = field.getFigure(new Point(i, 0));
+                    return winner;
                 }
             }
-
-            for (int i = 0; i < field.getSize(); i++) { //check columns
-                if (check(field, new Point(i, 0), p-> new Point(p.x +1, p.y ))) {i
-                    return field.getFigure(new Point(0, 0));
+            //columns check
+            for (int i = 0; i < field.getSize(); i++) {
+                if (check(field, new Point(0, i), new Point(1, i), new Point(2, i))) {
+                    winner = field.getFigure(new Point(0, i));
+                    return winner;
                 }
             }
-
-            if (check(field, new Point(0, 0), p-> new Point(p.x +1, p.y + 1))) { //check diagonal 1
-                return field.getFigure(new Point(0, 0));
+            //diagonal1 check
+            if (check(field, new Point(0, 0), new Point(1, 1), new Point(2, 2))) {
+                winner = field.getFigure(new Point(0, 0));
+                return winner;
+            }
+            //diagonal2 check
+            if (check(field, new Point(0, 2), new Point(1, 1), new Point(2, 0))) {
+                winner = field.getFigure(new Point(1, 1));
+                return winner;
             }
 
-            if (check(field, new Point(0, 0), p-> new Point(p.x+1, p.y -1))) { //check diagonal 2
-                return field.getFigure(new Point(1, 1));
-            }
-
-
-        } catch (InvalidPointException e) {
+        }catch (InvalidPointException e){
             e.printStackTrace();
         }
-        return null;
+        return winner;
+
     }
 
-    private boolean check(final Field field, final Point currentPoint, final IPointGenerator pointGenerator){
-        final Figure currentFigure;
-        final Figure nextFigure;
-        final Point nextPoint = pointGenerator.next(currentPoint);
+    private boolean check(final Field field, final Point p1, final Point p2, final Point p3){
         try {
-            final Figure f = field.getFigure(currentPoint);
-        } catch (final InvalidPointException e){
-            return true;
-        }
-
-        if (currentFigure == null) return false;
-
-        if (currentFigure != nextFigure) return false;
-
-        return check(field, nextPoint, pointGenerator);
-
-        try {
-            if (field.getFigure(p1) == null) {
+            if (field.getFigure(p1) == null){
                 return false;
             }
-            if (field.getFigure(p1) == field.getFigure(p2) &&
-                    field.getFigure(p1) == field.getFigure(p3)) {
-                return true;
-        }
-        } catch (InvalidPointException e) {
+            if (field.getFigure(p1) == field.getFigure(p2) && field.getFigure(p1) == field.getFigure(p3)){
+                return false;
+            }
+        }catch (InvalidPointException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    private interface IPointGenerator{
 
-        public Point next(final Point point);
-
-    }
 
 }
