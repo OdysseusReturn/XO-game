@@ -1,4 +1,4 @@
-package com.xo.game;
+package com.xo.game.Model;
 
 public class Player {
 

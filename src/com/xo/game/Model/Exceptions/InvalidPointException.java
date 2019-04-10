@@ -1,4 +1,4 @@
-package com.xo.game.Exceptions;
+package com.xo.game.Model.Exceptions;
 
 public class InvalidPointException extends AbstracXOException {
 }
